@@ -2,13 +2,30 @@
 
 import axios from 'axios';
 
-// Create axios instance with base URL
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
-  },
+  }, 
 });
+
+// // Posts
+// export const fetchPosts = () => api.get('/posts');
+// export const fetchPostById = (id) => api.get(`/posts/${id}`);
+// export const createPost = (formData) => api.post('/posts', formData);
+// export const updatePost = (id, formData) => api.put(`/posts/${id}`, formData);
+// export const deletePost = (id) => api.delete(`/posts/${id}`);
+
+// // Categories
+// export const fetchCategories = () => api.get('/categories');
+// export const createCategory = (data) => api.post('/categories', data);
+
+// // Auth (optional advanced feature)
+// export const registerUser = (data) => api.post('/auth/register', data);
+// export const loginUser = (data) => api.post('/auth/login', data);
+// export const getCurrentUser = () => api.get('/auth/me');
+
 
 // Add request interceptor for authentication
 api.interceptors.request.use(
@@ -98,6 +115,12 @@ export const categoryService = {
   // Create a new category
   createCategory: async (categoryData) => {
     const response = await api.post('/categories', categoryData);
+    return response.data;
+  },
+
+  // Search categories
+  searchCategories: async (query) => {
+    const response = await api.get(`/categories/search?q=${query}`);
     return response.data;
   },
 };

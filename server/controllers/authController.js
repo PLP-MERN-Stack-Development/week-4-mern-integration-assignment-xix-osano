@@ -3,7 +3,7 @@ const JWT = require('jsonwebtoken');
 const User = require('../models/User');
 
 // Signup Endpoint Logic
-exports.signup = async (req, res) => {
+exports.register = async (req, res) => {
     const { username, email, password } = req.body;
 
     const exists = await User.findOne({ email });
